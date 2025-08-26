@@ -1,6 +1,6 @@
 param([string]$commitMsgFile)
 
-Write-Host "📝 Commit message validation..."
+Write-Host "Commit message validation..."
 bun commitlint --edit $commitMsgFile
 
 if ($LASTEXITCODE -ne 0) {
