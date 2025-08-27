@@ -16,24 +16,36 @@ This project is a web application built with Next.js and uses Bun as the package
 
 ## :sparkles: Feature List
 
-*Coming soon...*
-
+-[x] Authentication (Login & Register pages) 
+-[x] Protected Dashboard route (middleware-based) 
+-[x] Dynamic, catch-all and optional catch-all routing for user pages (user1, user2, user3) 
+-[x] Parallel routes in dashboard (@main) 
+-[x] Route groups for auth pages 
+-[x] Client-side navigation with Next.js Link
 
 ---
-
 
 ## :framed_picture: Screenshots
 
 ### Root Page (`/`)
 
-![Root Page](/public/Screenshot-app.png)
+![Root Page](/public/root.png)
 
 ### Root Dashboard Page (`/dashboard`)
-![Root Dashboard Page](/public/Screenshot-app2.png)
----
 
-## :file_folder: Folder Structure
+## ![Root Dashboard Page](/public/root-dashboard.png)
 
+### Dynamic route (`/user1/123`)
+
+![User1 Page](/public/root-user1.png)
+
+### Catch-all route (`/user2/[...slug]`)
+
+![User2 Page](/public/root-user2.png)
+
+### Optional catch-all route (`/user3/[[...slug]]`)
+
+![User3 Page](/public/root-user3.png)
 
 ---
 
@@ -69,20 +81,45 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   ├── file.svg
 │   ├── globe.svg
 │   ├── next.svg
-│   ├── Screenshot-app
-│   ├── Screenshot-app2
+│   ├── root-dashboard.png
+│   ├── root-login.png
+│   ├── root-register.png
+│   ├── root-user1.png
+│   ├── root-user2.png
+│   ├── root-user3.png
+│   ├── root.png
+│   ├── Screenshot-app.png
+│   ├── Screenshot-app2.png
 │   ├── vercel.svg
 │   └── window.svg
 ├── 📁src   // Main source directory
-│   └── 📁app
-│       ├── 📁dashboard
-│       │   └── page.tsx
-│       ├── 📁login
-│       │   └── page.tsx
-│       ├── favicon.ico
-│       ├── globals.css
-│       ├── layout.tsx
-│       └── page.tsx
+│   ├── 📁app
+│   │   ├── 📁(auth)
+│   │   │   ├── 📁login
+│   │   │   │   ├── 📁_components
+│   │   │   │   │   └── LoginForm.tsx
+│   │   │   │   └── page.tsx
+│   │   │   └── 📁register
+│   │   │       └── page.tsx
+│   │   ├── 📁dashboard
+│   │   │   ├── 📁@main
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── 📁user1
+│   │   │   └── 📁id
+│   │   │       └── page.tsx
+│   │   ├── 📁user2
+│   │   │   └── 📁[...slug]
+│   │   │       └── page.tsx
+│   │   ├── 📁user3
+│   │   │   └── 📁[[...slug]]
+│   │   │       └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── middleware.ts
 ├── .gitignore
 ├── bun.lock
 ├── bunfig.toml
