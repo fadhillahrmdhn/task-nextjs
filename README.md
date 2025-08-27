@@ -16,12 +16,12 @@ This project is a web application built with Next.js and uses Bun as the package
 
 ## :sparkles: Feature List
 
--[x] Authentication (Login & Register pages) 
--[x] Protected Dashboard route (middleware-based) 
--[x] Dynamic, catch-all and optional catch-all routing for user pages (user1, user2, user3) 
--[x] Parallel routes in dashboard (@main) 
--[x] Route groups for auth pages 
--[x] Client-side navigation with Next.js Link
+- [x] Authentication (Login & Register pages) 
+- [x] Protected Dashboard route (middleware-based) 
+- [x] Dynamic, catch-all and optional catch-all routing for user pages (user1, user2, user3) 
+- [x] Parallel routes in dashboard (@main) 
+- [x] Route groups for auth pages 
+- [x] Client-side navigation with Next.js Link
 
 ---
 
