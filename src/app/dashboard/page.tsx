@@ -1,3 +1,5 @@
-export default function DashboardPage() {
-  return <h1>ini Dashboard Page Next.js!</h1>;
-}
+const page = () => {
+  return <div>page dashboard content</div>;
+};
+
+export default page;
