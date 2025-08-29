@@ -29,23 +29,23 @@ This project is a web application built with Next.js and uses Bun as the package
 
 ### Root Page (`/`)
 
-![Root Page](/public/root.png)
+![Root Page](/public/assets/screenshots/root.png)
 
 ### Root Dashboard Page (`/dashboard`)
 
-## ![Root Dashboard Page](/public/root-dashboard.png)
+![Root Dashboard Page](/public/assets/screenshots/root-dashboard.png)
 
 ### Dynamic route (`/user1/123`)
 
-![User1 Page](/public/root-user1.png)
+![User1 Page](/public/assets/screenshots/root-user1.png)
 
 ### Catch-all route (`/user2/[...slug]`)
 
-![User2 Page](/public/root-user2.png)
+![User2 Page](/public/assets/screenshots/root-user2.png)
 
 ### Optional catch-all route (`/user3/[[...slug]]`)
 
-![User3 Page](/public/root-user3.png)
+![User3 Page](/public/assets/screenshots/root-user3.png)
 
 ---
 
