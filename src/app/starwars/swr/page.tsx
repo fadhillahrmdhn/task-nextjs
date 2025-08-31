@@ -6,7 +6,7 @@ import { StarwarData, StarwarsCharacters } from "@/interfaces";
 import useSWR from "swr";
 import { axiosFetcher } from "@/configs";
 
-const StarWarAxiosClientPage = () => {
+const StarWarSWRPage = () => {
   const { data, error, isLoading } = useSWR<StarwarData>(
     "/characters",
     axiosFetcher,
@@ -45,4 +45,4 @@ const StarWarAxiosClientPage = () => {
   );
 };
 
-export default StarWarAxiosClientPage;
+export default StarWarSWRPage;
