@@ -22,6 +22,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
+import { usePagination, dots } from "@/hooks";
+
 const StarwarsQueryPage = () => {
   const [page, setPage] = useState<number>(1);
   const [limit] = useState<number>(10);
@@ -34,6 +36,12 @@ const StarwarsQueryPage = () => {
   const totalPage = data?.info?.total
     ? Math.ceil(data?.info?.total / limit)
     : 1;
+
+  const paginationRange = usePagination({
+    totalPage,
+    currentPage: page,
+    siblingCount: 1,
+  });
 
   if (isLoading) {
     return <div className="m-4">Loading...</div>;
@@ -83,32 +91,35 @@ const StarwarsQueryPage = () => {
           <PaginationContent>
             <PaginationItem
               className={
-                data?.info?.page === 1
-                  ? "pointer-events-none opacity-40"
-                  : "cursor-pointer"
+                page === 1 ? "pointer-events-none opacity-40" : "cursor-pointer"
               }
             >
               <PaginationPrevious onClick={handlePreviousPage} />
             </PaginationItem>
 
-            {Array.from({ length: 10 }, (_, i) => (
-              <PaginationItem key={i} className="cursor-pointer">
-                <PaginationLink
-                  onClick={() => handlePageClick(i + 1)}
-                  isActive={data?.info?.page === i + 1}
-                >
-                  {i + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
+            {paginationRange.map((pageNumber, i) => {
+              if (pageNumber === dots) {
+                return (
+                  <PaginationItem key={i}>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                );
+              }
+              return (
+                <PaginationItem key={pageNumber} className="cursor-pointer">
+                  <PaginationLink
+                    onClick={() => handlePageClick(pageNumber as number)}
+                    isActive={page === pageNumber}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                </PaginationItem>
+              );
+            })}
 
             <PaginationItem
               className={
-                data?.info?.page === totalPage
+                page === totalPage
                   ? "pointer-events-none opacity-40"
                   : "cursor-pointer"
               }
