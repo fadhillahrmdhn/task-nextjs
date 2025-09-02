@@ -1,6 +1,6 @@
 "use client";
 
-import { characterQueryKey, fetchCharacters } from "@/configs";
+import { fetchCharacters, characterQueryKey } from "@/services";
 import { StarwarData } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";

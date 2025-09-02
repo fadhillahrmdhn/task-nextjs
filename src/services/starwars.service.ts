@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { api } from "./axios.config";
+import { api } from "@/configs";
 import { PaginationParams, StarwarData } from "@/interfaces";
 
 export const fetchCharacters = async ({
