@@ -5,7 +5,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { useAuthStore } from "@/store";
@@ -23,8 +22,12 @@ export function Navbar() {
     router.replace("/login");
   };
 
+  const isActive = (path: string) => {
+    return path === pathname;
+  };
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-white shadow-md">
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mx-3 flex items-center space-x-2">
@@ -37,16 +40,36 @@ export function Navbar() {
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     asChild
-                    className={navigationMenuTriggerStyle()}
+                    className={
+                      isActive("/dashboard")
+                        ? "text-blue-500 font-bold"
+                        : "text-black"
+                    }
                   >
                     <Link href="/dashboard">Dashboard</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               )}
             </NavigationMenuList>
+            <NavigationMenuList>
+              {isAuthenticated && (
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={
+                      isActive("/starwars/query")
+                        ? "text-blue-500 font-bold"
+                        : "text-black"
+                    }
+                  >
+                    <Link href="/starwars/query">Starwars</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )}
+            </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-2">
+        <div className="flex flex-1 items-center justify-end space-x-2 mr-4">
           {!isAuthenticated ? (
             <Button asChild variant="ghost">
               {pathname === "/login" ? (
