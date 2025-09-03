@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1>ini Login Page Next.js!</h1>
       <LoginForm />
     </div>
   );
