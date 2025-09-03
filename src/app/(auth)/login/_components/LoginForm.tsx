@@ -63,7 +63,7 @@ export default function LoginForm() {
 
   return (
     <div>
-      <Card className="max-w-sm mx-auto mt-10 shadow-xl">
+      <Card className="max-w-sm mx-auto my-9 shadow-xl">
         <CardHeader>
           <CardTitle>Login</CardTitle>
         </CardHeader>
