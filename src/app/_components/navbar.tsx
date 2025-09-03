@@ -26,27 +26,29 @@ export function Navbar() {
     return path === pathname;
   };
 
+  console.log("isAuthenticated:", isAuthenticated);
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-white shadow-md">
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mx-3 flex items-center space-x-2">
             <Code2 className="h-6 w-6" />
-            <span className="font-bold">ファディル</span>
           </Link>
           <NavigationMenu>
             <NavigationMenuList>
               {isAuthenticated && (
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    asChild
                     className={
                       isActive("/dashboard")
                         ? "text-blue-500 font-bold"
                         : "text-black"
                     }
                   >
-                    <Link href="/dashboard">Dashboard</Link>
+                    <Link href="/dashboard" className="font-medium">
+                      Dashboard
+                    </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               )}
@@ -55,14 +57,15 @@ export function Navbar() {
               {isAuthenticated && (
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    asChild
                     className={
                       isActive("/starwars/query")
                         ? "text-blue-500 font-bold"
                         : "text-black"
                     }
                   >
-                    <Link href="/starwars/query">Starwars</Link>
+                    <Link href="/starwars/query" className="font-medium">
+                      Starwars
+                    </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               )}
