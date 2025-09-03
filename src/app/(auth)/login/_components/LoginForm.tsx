@@ -88,10 +88,17 @@ export default function LoginForm() {
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
                   />
-
                   {field.state.meta.errors && (
                     <p className="text-red-500 text-sm mt-1">
-                      {field.state.meta.errors.join(", ")}
+                      {Array.isArray(field.state.meta.errors)
+                        ? field.state.meta.errors
+                            .map((error) =>
+                              typeof error === "string"
+                                ? error
+                                : error?.message || "Unknown error",
+                            )
+                            .join(", ")
+                        : String(field.state.meta.errors)}
                     </p>
                   )}
                 </div>
@@ -113,7 +120,15 @@ export default function LoginForm() {
                   />
                   {field.state.meta.errors && (
                     <p className="text-red-500 text-sm mt-1">
-                      {field.state.meta.errors.join(", ")}
+                      {Array.isArray(field.state.meta.errors)
+                        ? field.state.meta.errors
+                            .map((error) =>
+                              typeof error === "string"
+                                ? error
+                                : error?.message || "Unknown error",
+                            )
+                            .join(", ")
+                        : String(field.state.meta.errors)}
                     </p>
                   )}
                 </div>
