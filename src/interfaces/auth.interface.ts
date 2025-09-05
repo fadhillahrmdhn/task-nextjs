@@ -13,7 +13,6 @@ export interface AuthState {
   isAuthenticated: boolean;
   setLoading: (loading: boolean) => void;
   login: ({ value }: { value: LoginFormValues }) => Promise<LoginResponse>;
-  checkAuth: () => Promise<void>;
   logout: () => void;
 }
 

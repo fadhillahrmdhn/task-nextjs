@@ -78,46 +78,6 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isLoading: false });
     }
   },
-  checkAuth: async () => {
-    // 1. Ambil token dari cookie browser.
-    const token = Cookies.get(cookieName);
-
-    // 2. Jika tidak ada token, pengguna belum login.
-    if (!token) {
-      // Langsung atur state menjadi tidak terotentikasi dan hentikan loading.
-      set({ user: null, isAuthenticated: false, isLoading: false });
-      return;
-    }
-
-    // 3. Jika token ditemukan, set status loading menjadi true.
-    set({ isLoading: true });
-    try {
-      // 4. Verifikasi token dengan cara mengambil data pengguna dari endpoint /auth/me.
-      const response = await api2.get<AuthMe>("/auth/me");
-      const user: AuthUser = response.data.data;
-      // 5. Jika berhasil, perbarui state global sebagai "sudah login".
-      set({ user, isAuthenticated: true });
-    } catch (error) {
-      // 6. Jika gagal (misal: token tidak valid), hapus token yang salah dari cookie.
-      Cookies.remove(cookieName);
-      // Atur ulang state menjadi tidak terotentikasi.
-      set({ user: null, isAuthenticated: false });
-      if (isAxiosError<ErrorResponse>(error)) {
-        throw new Error(
-          error.response?.data?.message || "Authentication check failed.",
-        );
-      }
-      if (error instanceof Error) {
-        throw error;
-      }
-      throw new Error(
-        "An unexpected error occurred during authentication check.",
-      );
-    } finally {
-      // 7. Apapun hasilnya (berhasil atau gagal), set loading menjadi false.
-      set({ isLoading: false });
-    }
-  },
 
   logout: () => {
     // 1. Hapus token otentikasi dari cookie browser.
