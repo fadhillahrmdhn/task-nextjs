@@ -1,0 +1,94 @@
+"use client";
+
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
+import Link from "next/link";
+import { useAuthStore } from "@/store";
+import { Button } from "@/components/ui/button";
+import { Code2, LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+
+export function Navbar() {
+  const { isAuthenticated, logout } = useAuthStore();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLogout = () => {
+    logout();
+    router.replace("/login");
+  };
+
+  const isActive = (path: string) => {
+    return path === pathname;
+  };
+
+  console.log("isAuthenticated:", isAuthenticated);
+
+  return (
+    <nav className="sticky top-0 z-50 w-full border-b bg-white shadow-md">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 flex items-center">
+          <Link href="/" className="mx-3 flex items-center space-x-2">
+            <Code2 className="h-6 w-6" />
+          </Link>
+          <NavigationMenu>
+            <NavigationMenuList>
+              {isAuthenticated && (
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    className={
+                      isActive("/dashboard")
+                        ? "text-blue-500 font-bold"
+                        : "text-black"
+                    }
+                  >
+                    <Link href="/dashboard" className="font-medium">
+                      Dashboard
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )}
+            </NavigationMenuList>
+            <NavigationMenuList>
+              {isAuthenticated && (
+                <NavigationMenuItem>
+                  <NavigationMenuLink
+                    className={
+                      isActive("/starwars/query")
+                        ? "text-blue-500 font-bold"
+                        : "text-black"
+                    }
+                  >
+                    <Link href="/starwars/query" className="font-medium">
+                      Starwars
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+        <div className="flex flex-1 items-center justify-end space-x-2 mr-4">
+          {!isAuthenticated ? (
+            <Button asChild variant="ghost">
+              {pathname === "/login" ? (
+                <Link href="/">Beranda</Link>
+              ) : (
+                <Link href="/login">Login</Link>
+              )}
+            </Button>
+          ) : (
+            <Button variant="destructive" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Logout
+            </Button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+}
