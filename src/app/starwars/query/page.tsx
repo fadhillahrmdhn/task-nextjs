@@ -1,6 +1,10 @@
 "use client";
 
-import { fetchCharacters, characterQueryKey } from "@/services";
+import {
+  fetchCharacters,
+  characterQueryKey,
+  SearchCharacter,
+} from "@/services";
 import { StarwarData } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -23,14 +27,17 @@ import {
 } from "@/components/ui/pagination";
 
 import { usePagination, dots } from "@/hooks";
+import { SearchBar } from "./_components/SearchBar";
 
 const StarwarsQueryPage = () => {
   const [page, setPage] = useState<number>(1);
   const [limit] = useState<number>(10);
+  const [search, setSearch] = useState<string>("");
 
   const { data, error, isLoading } = useQuery<StarwarData>({
-    queryKey: characterQueryKey({ page, limit }),
-    queryFn: () => fetchCharacters({ page, limit }),
+    queryKey: characterQueryKey({ page, limit, name: search }),
+    queryFn: () =>
+      search ? SearchCharacter(search) : fetchCharacters({ page, limit }),
   });
 
   const totalPage = data?.info?.total
@@ -64,70 +71,79 @@ const StarwarsQueryPage = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col m-4 gap-4">
+      <SearchBar search={search} setSearch={setSearch} />
       <div className="m-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {data?.data?.map((character) => (
-          <Card key={character._id} className="p-0 gap-0 overflow-hidden">
-            <CardHeader className="p-0">
-              <Image
-                src={character.image}
-                alt={character.name}
-                width={400}
-                height={400}
-                className="w-full h-48 object-cover"
-              />
-            </CardHeader>
-            <CardContent className="p-4">
-              <CardTitle>{character.name}</CardTitle>
-              <CardDescription className="mt-2 line-clamp-3">
-                {character.description}
-              </CardDescription>
-            </CardContent>
-          </Card>
-        ))}
+        {data?.data && data.data.length > 0 ? (
+          data.data.map((character) => (
+            <Card key={character._id} className="p-0 gap-0 overflow-hidden">
+              <CardHeader className="p-0">
+                <Image
+                  src={character.image}
+                  alt={character.name}
+                  width={400}
+                  height={400}
+                  className="w-full h-48 object-cover"
+                />
+              </CardHeader>
+              <CardContent className="p-4">
+                <CardTitle>{character.name}</CardTitle>
+                <CardDescription className="mt-2 line-clamp-3">
+                  {character.description}
+                </CardDescription>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <div className="col-span-full text-center">No characters found.</div>
+        )}
       </div>
       <div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem
-              className={
-                page === 1 ? "pointer-events-none opacity-40" : "cursor-pointer"
-              }
-            >
-              <PaginationPrevious onClick={handlePreviousPage} />
-            </PaginationItem>
+        {totalPage > 1 && (
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem
+                className={
+                  page === 1
+                    ? "pointer-events-none opacity-40"
+                    : "cursor-pointer"
+                }
+              >
+                <PaginationPrevious onClick={handlePreviousPage} />
+              </PaginationItem>
 
-            {paginationRange.map((pageNumber, i) => {
-              if (pageNumber === dots) {
+              {paginationRange.map((pageNumber, i) => {
+                if (pageNumber === dots) {
+                  return (
+                    <PaginationItem key={i}>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  );
+                }
                 return (
-                  <PaginationItem key={i}>
-                    <PaginationEllipsis />
+                  <PaginationItem key={pageNumber} className="cursor-pointer">
+                    <PaginationLink
+                      onClick={() => handlePageClick(pageNumber as number)}
+                      isActive={page === pageNumber}
+                    >
+                      {pageNumber}
+                    </PaginationLink>
                   </PaginationItem>
                 );
-              }
-              return (
-                <PaginationItem key={pageNumber} className="cursor-pointer">
-                  <PaginationLink
-                    onClick={() => handlePageClick(pageNumber as number)}
-                    isActive={page === pageNumber}
-                  >
-                    {pageNumber}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            })}
+              })}
 
-            <PaginationItem
-              className={
-                page === totalPage
-                  ? "pointer-events-none opacity-40"
-                  : "cursor-pointer"
-              }
-            >
-              <PaginationNext onClick={handleNextPage} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+              <PaginationItem
+                className={
+                  page === totalPage
+                    ? "pointer-events-none opacity-40"
+                    : "cursor-pointer"
+                }
+              >
+                <PaginationNext onClick={handleNextPage} />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
       </div>
     </div>
   );
