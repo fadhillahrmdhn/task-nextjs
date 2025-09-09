@@ -27,12 +27,13 @@ import {
 } from "@/components/ui/pagination";
 
 import { usePagination, dots } from "@/hooks";
-import { SearchBar } from "./_components/SearchBar";
+import { useSearchStore } from "@/store";
 
 const StarwarsQueryPage = () => {
   const [page, setPage] = useState<number>(1);
   const [limit] = useState<number>(10);
-  const [search, setSearch] = useState<string>("");
+
+  const { search } = useSearchStore();
 
   const { data, error, isLoading } = useQuery<StarwarData>({
     queryKey: characterQueryKey({ page, limit, name: search }),
@@ -71,8 +72,7 @@ const StarwarsQueryPage = () => {
   };
 
   return (
-    <div className="flex flex-col m-4 gap-4">
-      <SearchBar search={search} setSearch={setSearch} />
+    <div className="w-full">
       <div className="m-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data?.data && data.data.length > 0 ? (
           data.data.map((character) => (
@@ -95,7 +95,9 @@ const StarwarsQueryPage = () => {
             </Card>
           ))
         ) : (
-          <div className="col-span-full text-center">No characters found.</div>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl md:text-2xl text-muted-foreground">
+            No characters found.
+          </div>
         )}
       </div>
       <div>
