@@ -20,14 +20,19 @@ export const fetchCharacters = async ({
 };
 
 export const SearchCharacter = async (name: string): Promise<StarwarData> => {
-  const res: AxiosResponse<StarwarData> = await api.get(`/characters`, {
-    params: {
-      page: 1,
-      limit: 952,
-    },
+  // Lakukan request untuk mendapatkan total karakter
+  const infoRes = await api.get<StarwarData>("/characters", {
+    params: { limit: 1 },
+  });
+  const totalCharacters = infoRes.data.info.total;
+
+  // Gunakan total karakter sebagai limit untuk mengambil semua data
+  const allCharactersRes = await api.get<StarwarData>("/characters", {
+    params: { limit: totalCharacters },
   });
 
-  const filteredCharacters = res.data.data.filter(
+  // Filter hasil
+  const filteredCharacters = allCharactersRes.data.data.filter(
     (character: StarwarsCharacters) =>
       character.name.toLowerCase().includes(name.toLowerCase()),
   );
