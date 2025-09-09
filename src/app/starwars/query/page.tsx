@@ -99,7 +99,7 @@ const StarwarsQueryPage = () => {
         )}
       </div>
       <div>
-        {totalPage > 1 && (
+        {search === "" && (
           <Pagination>
             <PaginationContent>
               <PaginationItem

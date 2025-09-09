@@ -20,20 +20,27 @@ export const fetchCharacters = async ({
 };
 
 export const SearchCharacter = async (name: string): Promise<StarwarData> => {
-  const res: AxiosResponse<StarwarsCharacters[]> = await api.get(
-    `/characters/name/${name}`,
+  const res: AxiosResponse<StarwarData> = await api.get(`/characters`, {
+    params: {
+      page: 1,
+      limit: 952,
+    },
+  });
+
+  const filteredCharacters = res.data.data.filter(
+    (character: StarwarsCharacters) =>
+      character.name.toLowerCase().includes(name.toLowerCase()),
   );
-  const characters = res.data;
 
   return {
     info: {
-      total: characters.length,
+      total: filteredCharacters.length,
       page: 1,
-      limit: characters.length > 0 ? characters.length : 10,
+      limit: filteredCharacters.length > 0 ? filteredCharacters.length : 10,
       next: null,
       prev: null,
     },
-    data: characters,
+    data: filteredCharacters,
   };
 };
 
