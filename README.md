@@ -31,6 +31,7 @@ This project is a modern web application built with Next.js, featuring protected
 - [x] Pagination component & custom hook
 - [x] Toast notification (Sonner)
 - [x] Search feature (Star Wars API)
+- [x] custom page not found with reactbits
 
 ---
 
@@ -48,10 +49,14 @@ This project is a modern web application built with Next.js, featuring protected
 
 ![Root Dashboard Page](/public/assets/screenshots/dashboard.png)
 
-### Root Star Wars Page (`/starwars/query`)
+### Root Star Wars Page (`/starwars`)
 
 ![Root Star Wars Page](/public/assets/screenshots/Root_StarWars_Page.png)
 ![Search Feature](/public/assets/screenshots/search-feature.png)
+
+### :iphone: Mobile View
+
+![Root Star Wars Page](/public/assets/screenshots/Root_StarWars_mobile.png)
 
 ---
 
@@ -83,7 +88,7 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   ├── commit-msg.ps1      // Hook for commit message validation
 │   ├── pre-commit          // Hook for pre-commit checks
 │   └── pre-commit.ps1      // Hook for pre-commit checks
-├── 📁public/                  // Public assets (served at root)
+├── 📁public
 │   └── 📁assets
 │       ├── 📁icons
 │       │   ├── file.svg
@@ -93,83 +98,55 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │       │   └── window.svg
 │       └── 📁screenshots
 │           ├── dashboard.png
-│           ├── Fetching_dengan_Axios_dan_SWR.png
-│           ├── Fetching_di_Client_Components.png
-│           ├── Fetching_di_Client_Components_menggunakan_Axios.png
-│           ├── Fetching_di_Server_Components.png
-│           ├── Fetching_di_Server_Components_menggunakan_Axios.png
-│           ├── Fetching_menggunakan_Axios_dan_TanstackQuery.png
 │           ├── login.png
-│           ├── root-dashboard.png
-│           ├── root-login.png
-│           ├── root-register.png
-│           ├── root-user1.png
-│           ├── root-user2.png
-│           ├── root-user3.png
-│           ├── root.png
 │           ├── rootpage.png
-│           ├── Screenshot-app.png
-│           └── Screenshot-app2.png
+│           ├── Root_StarWars_mobile.png
+│           ├── Root_StarWars_Page.png
+│           └── search-feature.png
 ├── 📁src
 │   ├── 📁app
-│   │   ├── 📁(auth)
-│   │   │   ├── 📁login
-│   │   │   │   ├── 📁_components
-│   │   │   │   │   └── LoginForm.tsx
-│   │   │   │   └── page.tsx
-│   │   │   └── 📁register
-│   │   │       └── page.tsx
-│   │   ├── 📁dashboard
-│   │   │   ├── 📁@main
-│   │   │   │   └── page.tsx
-│   │   │   ├── layout.tsx
-│   │   │   └── page.tsx
-│   │   ├── 📁starwars
-│   │   │   ├── 📁axios
-│   │   │   │   ├── 📁client
+│   │   ├── 📁(main)
+│   │   │   ├── 📁(auth)
+│   │   │   │   ├── 📁login
+│   │   │   │   │   ├── 📁_components
+│   │   │   │   │   │   └── LoginForm.tsx
 │   │   │   │   │   └── page.tsx
-│   │   │   │   └── 📁server
+│   │   │   │   └── 📁register
 │   │   │   │       └── page.tsx
-│   │   │   ├── 📁fetch
-│   │   │   │   ├── 📁client
+│   │   │   ├── 📁dashboard
+│   │   │   │   ├── 📁@main
 │   │   │   │   │   └── page.tsx
-│   │   │   │   └── 📁server
-│   │   │   │       └── page.tsx
-│   │   │   ├── 📁query
+│   │   │   │   ├── layout.tsx
+│   │   │   │   └── page.tsx
+│   │   │   ├── 📁starwars
 │   │   │   │   ├── 📁_components
 │   │   │   │   │   └── SearchBar.tsx
 │   │   │   │   ├── layout.tsx
 │   │   │   │   └── page.tsx
-│   │   │   └── 📁swr
-│   │   │       └── page.tsx
-│   │   ├── 📁user1
-│   │   │   └── 📁[id]
-│   │   │       └── page.tsx
-│   │   ├── 📁user2
-│   │   │   └── 📁[...slug]
-│   │   │       └── page.tsx
-│   │   ├── 📁user3
-│   │   │   └── 📁[[...slug]]
-│   │   │       └── page.tsx
+│   │   │   ├── 📁_components
+│   │   │   │   └── navbar.tsx
+│   │   │   └── layout.tsx
 │   │   ├── 📁_components
 │   │   │   └── navbar.tsx
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
+│   │   ├── not-found.tsx
 │   │   └── page.tsx
 │   ├── 📁components
 │   │   ├── 📁shared
-│   │   └── 📁ui
-│   │       ├── alert.tsx
-│   │       ├── button.tsx
-│   │       ├── card.tsx
-│   │       ├── checkbox.tsx
-│   │       ├── input.tsx
-│   │       ├── label.tsx
-│   │       ├── navigation-menu.tsx
-│   │       ├── pagination.tsx
-│   │       ├── select.tsx
-│   │       └── sonner.tsx
+│   │   ├── 📁ui
+│   │   │   ├── alert.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── checkbox.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── navigation-menu.tsx
+│   │   │   ├── pagination.tsx
+│   │   │   ├── select.tsx
+│   │   │   └── sonner.tsx
+│   │   └── FuzzyText.tsx
 │   ├── 📁configs
 │   │   ├── axios.config.ts
 │   │   ├── index.ts
