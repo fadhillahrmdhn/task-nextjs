@@ -1,6 +1,6 @@
 # Task Next.js
 
-This project is a modern web application built with Next.js, featuring protected routes, authentication and authorization. It demonstrates data fetching in both Server and Client Components using Axios, SWR, and TanStack Query. State management is handled with Zustand. The app includes reusable UI components, pagination and toast notifications. Bun is used as the package manager and runtime for fast development.
+This project is a modern web application built with Next.js, featuring protected routes, authentication, and authorization. It demonstrates data fetching in both Server and Client Components using Axios, SWR, and TanStack Query. State management is handled with Zustand. The app includes reusable UI components, pagination, toast notifications, and a search feature for the Star Wars API. The folder structure is organized for scalability and maintainability. Bun is used as the package manager and runtime for fast development.
 
 ---
 
@@ -20,16 +20,17 @@ This project is a modern web application built with Next.js, featuring protected
 
 ## :sparkles: Feature List
 
-- [x] Authentication and Authorization 
-- [x] Protected routes with middleware (Dashboard & Query)
+- [x] Authentication & Authorization (Login, Register)
+- [x] Protected routes with middleware (Dashboard, Query)
 - [x] Client-side navigation with Next.js Link
 - [x] Data fetching in Server and Client Components
 - [x] Data fetching with Axios (client & server)
 - [x] Data fetching with SWR
 - [x] Data fetching with TanStack Query
 - [x] State management with Zustand
-- [x] Pagination component & hook
+- [x] Pagination component & custom hook
 - [x] Toast notification (Sonner)
+- [x] Search feature (Star Wars API)
 
 ---
 
@@ -47,29 +48,10 @@ This project is a modern web application built with Next.js, featuring protected
 
 ![Root Dashboard Page](/public/assets/screenshots/dashboard.png)
 
-### Fetching in Server Components (`/starwars/fetch/server`)
+### Root Star Wars Page (`/starwars/query`)
 
-![User1 Page](/public/assets/screenshots/Fetching_di_Server_Components.png)
-
-### Fetching in Client Components (`/starwars/fetch/client`)
-
-![User1 Page](/public/assets/screenshots/Fetching_di_Client_Components.png)
-
-### Fetching in Server Components using Axios (`/starwars/axios/server`)
-
-![User2 Page](/public/assets/screenshots/Fetching_di_server_Components_menggunakan_Axios.png)
-
-### Fetching in Client Components using Axios (`/starwars/axios/client`)
-
-![User3 Page](/public/assets/screenshots/Fetching_di_Client_Components_menggunakan_Axios.png)
-
-### Fetching with Axios and SWR (`/starwars/swr`)
-
-![User3 Page](/public/assets/screenshots/Fetching_dengan_Axios_dan_SWR.png)
-
-### Fetching with Axios and TanStack Query (`/starwars/query`)
-
-![User3 Page](/public/assets/screenshots/Fetching_menggunakan_Axios_dan_TanstackQuery.png)
+![Root Star Wars Page](/public/assets/screenshots/Root_StarWars_Page.png)
+![Search Feature](/public/assets/screenshots/search-feature.png)
 
 ---
 
@@ -128,7 +110,7 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │           ├── rootpage.png
 │           ├── Screenshot-app.png
 │           └── Screenshot-app2.png
-├── 📁src   // Main source directory
+├── 📁src
 │   ├── 📁app
 │   │   ├── 📁(auth)
 │   │   │   ├── 📁login
@@ -154,6 +136,9 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   │   │   │   └── 📁server
 │   │   │   │       └── page.tsx
 │   │   │   ├── 📁query
+│   │   │   │   ├── 📁_components
+│   │   │   │   │   └── SearchBar.tsx
+│   │   │   │   ├── layout.tsx
 │   │   │   │   └── page.tsx
 │   │   │   └── 📁swr
 │   │   │       └── page.tsx
@@ -173,6 +158,7 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   │   ├── layout.tsx
 │   │   └── page.tsx
 │   ├── 📁components
+│   │   ├── 📁shared
 │   │   └── 📁ui
 │   │       ├── alert.tsx
 │   │       ├── button.tsx
@@ -196,14 +182,11 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   │   ├── index.ts
 │   │   └── use-pagination.ts
 │   ├── 📁interfaces
-│   │   ├── auth.inteface2.ts
 │   │   ├── auth.interface.ts
-│   │   ├── base.interface.ts
 │   │   ├── form-login.interface.ts
 │   │   ├── index.ts
 │   │   ├── pagination.interface.ts
-│   │   ├── starwars.interface.ts
-│   │   └── user.interface.ts
+│   │   └── starwars.interface.ts
 │   ├── 📁lib
 │   │   └── utils.ts
 │   ├── 📁providers
@@ -214,11 +197,11 @@ Once the server is running, you can open `http://localhost:3000` in your browser
 │   │   └── starwars.service.ts
 │   ├── 📁store
 │   │   ├── authStore.ts
-│   │   └── index.ts
+│   │   ├── index.ts
+│   │   └── searchStore.ts
 │   ├── 📁types
 │   │   ├── cookie.type.ts
-│   │   ├── index.ts
-│   │   └── response.type.ts
+│   │   └── index.ts
 │   └── middleware.ts
 ├── .gitignore
 ├── bun.lock
