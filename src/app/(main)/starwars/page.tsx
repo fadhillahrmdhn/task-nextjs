@@ -28,6 +28,7 @@ import {
 
 import { usePagination, dots } from "@/hooks";
 import { useSearchStore } from "@/store";
+import Loading from "./loading";
 
 const StarwarsQueryPage = () => {
   const [page, setPage] = useState<number>(1);
@@ -52,7 +53,7 @@ const StarwarsQueryPage = () => {
   });
 
   if (isLoading) {
-    return <div className="m-4">Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {
