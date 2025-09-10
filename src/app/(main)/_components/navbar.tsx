@@ -58,12 +58,12 @@ export function Navbar() {
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     className={
-                      isActive("/starwars/query")
+                      isActive("/starwars")
                         ? "text-blue-500 font-bold"
                         : "text-black"
                     }
                   >
-                    <Link href="/starwars/query" className="font-medium">
+                    <Link href="/starwars" className="font-medium">
                       Starwars
                     </Link>
                   </NavigationMenuLink>
